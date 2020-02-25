@@ -11,13 +11,16 @@ import com.mongodb.client.MongoDatabase;
 import io.javalin.Javalin;
 
 import umm3601.user.UserController;
+import umm3601.todo.TodoController;
 
 public class Server {
 
   static String appName = "UMM CSci 3601 Lab 4";
 
   public static final String USER_DATA_FILE = "/users.json";
+  public static final String TODO_DATA_FILE = "/todos.json";
   private static MongoDatabase database;
+  private static MongoDatabase todoDatabase;
 
   public static void main(String[] args) {
 
@@ -38,7 +41,10 @@ public class Server {
 
     // Initialize dependencies
     UserController userController = new UserController(database);
+    TodoController todoController = new TodoController(todoDatabase);
+
     //UserRequestHandler userRequestHandler = new UserRequestHandler(userController);
+    //TodoRequestHandler todoRequestHandler = new TodoRequestHandler(todoController);
 
     Javalin server = Javalin.create().start(4567);
 
@@ -48,16 +54,23 @@ public class Server {
     // Utility routes
     server.get("api", ctx -> ctx.result(appName));
 
-    // Get specific user
+    // Get specific user or todo
     server.get("api/users/:id", userController::getUser);
+    server.get("api/todos/:id", todoController::getTodo);
 
+    // Delete specific user or todo
     server.delete("api/users/:id", userController::deleteUser);
+    server.delete("api/todos/:id", todoController::deleteTodo);
 
-    // List users, filtered using query parameters
+    // List users, or todos filtered using query parameters
     server.get("api/users", userController::getUsers);
+    server.get("api/todos", todoController::getTodos);
 
-    // Add new user
+    // Add new user or todo
     server.post("api/users/new", userController::addNewUser);
+    server.post("api/todos/new", todoController::addNewTodo);
+
+
 
 
 
