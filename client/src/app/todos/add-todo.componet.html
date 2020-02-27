@@ -1,0 +1,65 @@
+<!-- example from
+https://github.com/AngularTemplates/angular-forms-and-validations/blob/master/src/app/form-component/form.component.html
+is potentially helpful and contributed to the shaping of this example -->
+<div fxLayout="row">
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
+    <form [formGroup]="addUserForm" (ngSubmit)="submitForm();">
+    <mat-card class="add-todo-card">
+        <mat-card-header>
+          <mat-card-title class="add-todo-title">New Todo</mat-card-title>
+        </mat-card-header>
+        <mat-card-content fxLayout="column">
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput id="ownerField" placeholder="Owner" formControlName="owner"
+                  required>
+            <mat-error *ngFor="let validation of add_todo_validation_messages.owner">
+              <mat-error class="error-message" id="owner-error"
+                        *ngIf="addTodoForm.get('owner').hasError(validation.type) && (addTodoForm.get('owner').dirty || addTodoForm.get('owner').touched)">
+                {{validation.message}}
+              </mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Status</mat-label>
+            <input matInput #input id="statusField" type="boolean" placeholder="Status"
+                  formControlName="status" required>
+            <mat-error *ngFor="let validation of add_todo_validation_messages.status">
+              <mat-error class="error-message" id="status-error"
+                        *ngIf="addTodoForm.get('status').hasError(validation.type) && (addTodoForm.get('status').dirty || addTodoForm.get('status').touched)">
+                {{validation.message}}
+              </mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Category</mat-label>
+            <input matInput #input id="categoryField" placeholder="Category"
+                  formControlName="category">
+            <mat-hint>Not required in Angular for demonstration, still required by server</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field >
+            <mat-label>Body</mat-label>
+            <input matInput #input id="emailField" placeholder="Email"
+                  formControlName="body" required>
+            <mat-error *ngFor="let validation of add_todo_validation_messages.body">
+              <mat-error class="error-message" id='body-error'
+                        *ngIf="addTodoForm.get('email').hasError(validation.type) && (addTodoForm.get('body').dirty || addTodoForm.get('body').touched)">
+                {{validation.message}}
+              </mat-error>
+            </mat-error>
+          </mat-form-field>
+
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-button id="confirmAddTodoButton" type="button" color="primary"
+                  [disabled]="!addTodoForm.valid" type="submit">
+                  ADD TODO
+          </button>
+        </mat-card-actions>
+    </mat-card>
+  </form>
+  </div>
+</div>
