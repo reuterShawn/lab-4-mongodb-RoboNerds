@@ -23,7 +23,7 @@ export class TodoListComponent implements OnInit, OnDestroy  {
   getTodosSub: Subscription;
 
 
-  // Inject the TodoService into this component.
+  // Inject the Service into this component.
   // That's what happens in the following constructor.
   //
   // We can call upon the service for interacting

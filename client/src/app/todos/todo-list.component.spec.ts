@@ -66,11 +66,11 @@ describe('Todo list', () => {
     expect(todoList.serverFilteredTodos.length).toBe(3);
   });
 
-  it('contains a todo named \'Chris\'', () => {
+  it('contains a todo named \'Fry\'', () => {
     expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.owner === 'Chris')).toBe(true);
   });
 
-  it('contain a todo named \'Jamie\'', () => {
+  it('contain a todo named \'Blanche\'', () => {
     expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.owner === 'Jamie')).toBe(true);
   });
 

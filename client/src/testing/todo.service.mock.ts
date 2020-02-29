@@ -11,25 +11,25 @@ import { TodoService } from '../app/todos/todo.service';
 export class MockTodoService extends TodoService {
   static testTodos: Todo[] = [
     {
-      _id: 'chris_id',
-      owner: 'Chris',
+      _id: 'Blanche_id',
+      owner: 'Blanche',
       status: true,
-      body: 'lorem ipsum',
-      category: 'video games',
+      body: 'In sunt esse.',
+      category: 'software design'
     },
     {
-      _id: 'pat_id',
-      owner: 'Pat',
+      _id:  'Fry_id',
+      owner: 'Fry',
       status: false,
-      body: 'Being specific',
-      category: 'software design',
+      body: 'Ipsum esse.',
+      category: 'video games'
     },
     {
-      _id: 'jamie_id',
-      owner: 'Jamie',
+      _id: 'Barry_id',
+      owner: 'Barry',
       status: true,
-      body: 'Fixing issues',
-      category: 'homework',
+      body: 'Ullamco irure.',
+      category: 'homework'
     }
   ];
 
