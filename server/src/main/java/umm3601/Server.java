@@ -38,6 +38,7 @@ public class Server {
 
     // Get the database
     database = mongoClient.getDatabase(databaseName);
+    todoDatabase = mongoClient.getDatabase(databaseName);
 
     // Initialize dependencies
     UserController userController = new UserController(database);

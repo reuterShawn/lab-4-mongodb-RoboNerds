@@ -41,9 +41,9 @@ public class TodoController {
    *
    * @param database the database containing todo data
    */
-  public TodoController(MongoDatabase database) {
+  public TodoController(MongoDatabase todoDatabase) {
     jacksonCodecRegistry.addCodecForClass(Todo.class);
-    todoCollection = database.getCollection("todos").withDocumentClass(Todo.class)
+    todoCollection = todoDatabase.getCollection("todos").withDocumentClass(Todo.class)
         .withCodecRegistry(jacksonCodecRegistry);
   }
 
