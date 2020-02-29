@@ -26,7 +26,7 @@ export class AddTodoComponent implements OnInit {
       {type: 'required', message: 'Owner is required'},
       {type: 'minlength', message: 'Owner must be at least 2 characters long'},
       {type: 'maxlength', message: 'Owner cannot be more than 50 characters long'},
-      {type: 'pattern', message: 'Owner must contain only letters'},
+      {type: 'pattern', message: 'Owner must contain only and letters'},
       {type: 'existingOwner', message: 'Owner has already been taken'}
     ],
 
@@ -43,8 +43,7 @@ export class AddTodoComponent implements OnInit {
 
     // Can add category here  if we need to
   };
-
-// Fix these later not sure exactly how to format these yet
+// Do not want to mess around with testing yet
   createForms() {
 
     // add todo form validations
