@@ -19,7 +19,7 @@ export class TodoService {
         httpParams = httpParams.set('owner', filters.owner);
       }
       if (filters.status) {
-        httpParams = httpParams.set('status', filters.status;
+        httpParams = httpParams.set('status', filters.status);
       }
       if (filters.category) {
         httpParams = httpParams.set('company', filters.category);
@@ -60,7 +60,7 @@ export class TodoService {
   }
 
   addTodo(newTodo: Todo): Observable<string> {
-    // Send post request to add a new user with the user data as the body.
+    // Send post request to add a new todo with the todo data as the body.
     return this.httpClient.post<{id: string}>(this.todoUrl + '/new', newTodo).pipe(map(res => res.id));
   }
 }
