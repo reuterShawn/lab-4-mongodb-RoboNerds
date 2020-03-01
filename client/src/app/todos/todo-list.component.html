@@ -33,8 +33,11 @@
 
           <mat-form-field class="input-field">
             <mat-label>Status</mat-label>
-            <input matInput id="todo-status-input" type="string" placeholder="Filter by status"
-            min="0" max="200" [(ngModel)]="todoStatus" (input)="getTodosFromServer()">
+            <mat-select (selectionChange)="getTodosFromServer()" [(ngModel)]="todoStatus" id="todo-status-select">
+              <mat-option>--</mat-option>
+              <mat-option value="false">Incomplete</mat-option>
+              <mat-option value="true">Complete</mat-option>
+            </mat-select>
             <mat-hint>Filtered on Server</mat-hint>
           </mat-form-field>
 

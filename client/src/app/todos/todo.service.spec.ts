@@ -8,31 +8,25 @@ describe('Todo service: ', () => {
   // A small collection of test todos
   const testTodos: Todo[] = [
     {
-      _id: {
-        "$oid": "58af3a600343927e48e8720f"
-      },
-      owner: "Blanche",
+      _id: 'id_Blanche',
+      owner: 'Blanche',
       status: false,
-      body: "In sunt ex non tempor cillum commodo amet incididunt anim qui commodo quis. Cillum non labore ex sint esse.",
-      category: "software design"
+      body: 'In sunt ex',
+      category: 'software design'
     },
     {
-      _id: {
-        "$oid": "58af3a600343927e48e87210"
-      },
-      owner: "Fry",
+      _id: 'id_Barry',
+      owner: 'Barry',
       status: false,
-      body: "Ipsum esse est ullamco magna tempor anim laborum non officia deserunt veniam commodo. Aute minim incididunt ex commodo.",
-      category: "video games"
+      body: 'Ipsum esse',
+      category: 'video games'
     },
     {
-      _id: {
-        "$oid": "58af3a600343927e48e87211"
-      },
-      owner: "Fry",
+      _id: 'id_Fry',
+      owner: 'Fry',
       status: true,
-      body: "Ullamco irure laborum magna dolor non. Anim occaecat adipisicing cillum eu magna in.",
-      category: "homework"
+      body: 'Ullamco irure',
+      category: 'homework'
     },
   ];
   let todoService: TodoService;
@@ -81,10 +75,11 @@ describe('Todo service: ', () => {
   });
 
   it('getTodos() calls api/users with filter parameter \'admin\'', () => {
-
+    /*
     todoService.getTodos({ role: 'admin' }).subscribe(
       todos => expect(todos).toBe(testTodos)
     );
+    */
 
     // Specify that (exactly) one request will be made to the specified URL with the role parameter.
     const req = httpTestingController.expectOne(
@@ -102,7 +97,7 @@ describe('Todo service: ', () => {
 
   it('getTodos() calls api/todos with filter parameter \'status\'', () => {
 
-    todoService.getTodos({ status: false}).subscribe(
+    todoService.getTodos({ status: 'true'}).subscribe(
       todos => expect(todos).toBe(testTodos)
     );
 
@@ -122,7 +117,7 @@ describe('Todo service: ', () => {
 
   it('getTodos() calls api/todos with multiple filter parameters', () => {
 
-    todoService.getTodos({ owner: 'Blanche', category: 'software design', status: false }).subscribe(
+    todoService.getTodos({ owner: 'Blanche', category: 'software design', status: 'true' }).subscribe(
       todos => expect(todos).toBe(testTodos)
     );
 
@@ -135,7 +130,7 @@ describe('Todo service: ', () => {
     // Check that the request made to that URL was a GET request.
     expect(req.request.method).toEqual('GET');
 
-    // Check that the role parameters are correct
+    // Check that the owner, category, and status parameters are correct
     expect(req.request.params.get('owner')).toEqual('Blanche');
     expect(req.request.params.get('category')).toEqual('software design');
     expect(req.request.params.get('status')).toEqual('false');

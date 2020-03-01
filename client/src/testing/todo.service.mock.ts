@@ -13,14 +13,14 @@ export class MockTodoService extends TodoService {
     {
       _id: 'Blanche_id',
       owner: 'Blanche',
-      status: true,
+      status: false,
       body: 'In sunt esse.',
       category: 'software design'
     },
     {
       _id:  'Fry_id',
       owner: 'Fry',
-      status: false,
+      status: true,
       body: 'Ipsum esse.',
       category: 'video games'
     },
@@ -37,7 +37,7 @@ export class MockTodoService extends TodoService {
     super(null);
   }
 
-  getTodos(filters: { owner?: string, status?: boolean, body?: string, category?: string }): Observable<Todo[]> {
+  getTodos(filters: { owner?: string, status?: string, body?: string, category?: string }): Observable<Todo[]> {
     // Just return the test todos regardless of what filters are passed in
     return of(MockTodoService.testTodos);
   }
