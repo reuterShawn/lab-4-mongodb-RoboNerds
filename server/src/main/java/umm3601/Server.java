@@ -20,7 +20,6 @@ public class Server {
   public static final String USER_DATA_FILE = "/users.json";
   public static final String TODO_DATA_FILE = "/todos.json";
   private static MongoDatabase database;
-  private static MongoDatabase todoDatabase;
 
   public static void main(String[] args) {
 
@@ -38,11 +37,10 @@ public class Server {
 
     // Get the database
     database = mongoClient.getDatabase(databaseName);
-    todoDatabase = mongoClient.getDatabase(databaseName);
 
     // Initialize dependencies
     UserController userController = new UserController(database);
-    TodoController todoController = new TodoController(todoDatabase);
+    TodoController todoController = new TodoController(database);
 
     //UserRequestHandler userRequestHandler = new UserRequestHandler(userController);
     //TodoRequestHandler todoRequestHandler = new TodoRequestHandler(todoController);
