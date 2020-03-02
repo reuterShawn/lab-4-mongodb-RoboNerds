@@ -103,7 +103,7 @@ describe('AddTodoComponent', () => {
     });
 
     it('should not allow a name to contain a symbol', () => {
-      nameControl.setValue('bad@email.com');
+      nameControl.setValue('bad@body.com');
       expect(nameControl.valid).toBeFalsy();
       expect(nameControl.hasError('pattern')).toBeTruthy();
     });
@@ -126,7 +126,7 @@ describe('AddTodoComponent', () => {
     });
   });
 
-  describe('The age field', () => {
+  describe('The Status Field ', () => {
     let ageControl: AbstractControl;
 
     beforeEach(() => {
@@ -138,7 +138,7 @@ describe('AddTodoComponent', () => {
       expect(ageControl.valid).toBeFalsy();
     });
 
-    it('should be fine with "27"', () => {
+    it('should be fine with "true"', () => {
       ageControl.setValue('27');
       expect(ageControl.valid).toBeTruthy();
     });
@@ -149,22 +149,6 @@ describe('AddTodoComponent', () => {
       expect(ageControl.hasError('min')).toBeTruthy();
     });
 
-    // In the real world, you'd want to be pretty careful about
-    // setting upper limits on things like ages.
-    it('should fail on ages that are too high', () => {
-      ageControl.setValue(201);
-      expect(ageControl.valid).toBeFalsy();
-      // I have no idea why I have to use a lower case 'l' here
-      // when it's an upper case 'L' in `Validators.maxLength(2)`.
-      // But I apparently do.
-      expect(ageControl.hasError('max')).toBeTruthy();
-    });
-
-    it('should not allow an age to contain non-digits', () => {
-      ageControl.setValue('123x567');
-      expect(ageControl.valid).toBeFalsy();
-      expect(ageControl.hasError('pattern')).toBeTruthy();
-    });
   });
 
   describe('The company field', () => {
@@ -175,11 +159,11 @@ describe('AddTodoComponent', () => {
     });
   });
 
-  describe('The email field', () => {
+  describe('The body field', () => {
     let emailControl: AbstractControl;
 
     beforeEach(() => {
-      emailControl = addTodoComponent.addTodoForm.controls[`email`];
+      emailControl = addTodoComponent.addTodoForm.controls[`body`];
     });
 
     it('should not allow empty values', () => {
@@ -196,41 +180,8 @@ describe('AddTodoComponent', () => {
     it('should fail without @', () => {
       emailControl.setValue('conniestewart');
       expect(emailControl.valid).toBeFalsy();
-      expect(emailControl.hasError('email')).toBeTruthy();
+      expect(emailControl.hasError('body')).toBeTruthy();
     });
   });
 
-  describe('The role field', () => {
-    let roleControl: AbstractControl;
-
-    beforeEach(() => {
-      roleControl = addTodoForm.controls[`role`];
-    });
-
-    it('should not allow empty values', () => {
-      roleControl.setValue('');
-      expect(roleControl.valid).toBeFalsy();
-      expect(roleControl.hasError('required')).toBeTruthy();
-    });
-
-    it('should allow "admin"', () => {
-      roleControl.setValue('admin');
-      expect(roleControl.valid).toBeTruthy();
-    });
-
-    it('should allow "editor"', () => {
-      roleControl.setValue('editor');
-      expect(roleControl.valid).toBeTruthy();
-    });
-
-    it('should allow "viewer"', () => {
-      roleControl.setValue('viewer');
-      expect(roleControl.valid).toBeTruthy();
-    });
-
-    it('should not allow "Supreme Overlord"', () => {
-      roleControl.setValue('Supreme Overlord');
-      expect(roleControl.valid).toBeFalsy();
-    });
-  });
 });

@@ -26,18 +26,25 @@ export class AddTodoComponent implements OnInit {
       {type: 'required', message: 'Owner is required'},
       {type: 'minlength', message: 'Owner must be at least 2 characters long'},
       {type: 'maxlength', message: 'Owner cannot be more than 50 characters long'},
-      {type: 'pattern', message: 'Owner must contain only and letters'},
-      {type: 'existingOwner', message: 'Owner has already been taken'}
+      {type: 'pattern', message: 'Owner must contain only and letters'}
     ],
 
     status: [
-      {type: 'pattern', message: 'Age must be a boolean'},
-      {type: 'min', message: 'Status must be true or false'},
       {type: 'required', message: 'Status is required'}
     ],
 
+
+    category: [
+      {type: 'pattern', message: 'category must be formatted properly'},
+      {type: 'minlength', message: 'Category must be at least 2 characters long'},
+      {type: 'maxlength', message: 'Category cannot be more than 50 characters long'},
+      {type: 'required', message: 'category is required'}
+    ],
+
     body: [
-      {type: 'body', message: 'Body must be formatted properly'},
+      {type: 'pattern', message: 'Body must be formatted properly'},
+      {type: 'minlength', message:'Body must be at least 2 characters long'},
+      {type: 'maxlength', message:'Body cannot be more than 50 characters long'},
       {type: 'required', message: 'Body is required'}
     ],
 
@@ -56,39 +63,30 @@ export class AddTodoComponent implements OnInit {
         // an upper limit like this because people can sometimes have
         // very long names. This demonstrates that it's possible, though,
         // to have maximum length limits.
-        Validators.maxLength(20),
-        Validators.pattern('^[A-Za-z0-9\\s]+[A-Za-z0-9\\s]+$(\\.0-9+)?'),
-        (fc) => {
-          if (fc.value.toLowerCase() === 'abc123' || fc.value.toLowerCase() === '123abc') {
-            return ({existingOwner: true});
-          } else {
-            return null;
-          }
-        },
+        Validators.maxLength(50),
+        Validators.pattern('[a-zA-Z]+'),
       ])),
 
-      // Since this is for a company, we need workers to be old enough to work, and probably not older than 200.
-      age: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.pattern('^[0-9]+[0-9]?'),
-        Validators.min(15),
-        Validators.max(200),
+      // Since this is for a category, we need workers to be old enough to work, and probably not older than 200.
+      status: new FormControl('', Validators.compose([
+        Validators.required
       ])),
 
-      // We don't care much about what is in the company field, so we just add it here as part of the form
+      // We don't care much about what is in the category field, so we just add it here as part of the form
       // without any particular validation.
-      company: new FormControl(),
-
+      category: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(50),
+        Validators.pattern('[a-zA-Z]+'),
+      ])),
       // We don't need a special validator just for our todo app here, but there is a default one for email.
       // We will require the email, though.
       body: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.email,
-      ])),
-
-      role: new FormControl('viewer', Validators.compose([
-        Validators.required,
-        Validators.pattern('^(admin|editor|viewer)$'),
+        Validators.minLength(2),
+        Validators.maxLength(50),
+        Validators.pattern('[a-zA-Z]+'),
       ])),
     });
 
