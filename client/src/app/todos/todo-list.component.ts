@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Todo } from './todo';
+import { Todo, statusType } from './todo';
 import { TodoService } from './todo.service';
 import { Subscription } from 'rxjs';
 
@@ -16,7 +16,7 @@ export class TodoListComponent implements OnInit, OnDestroy  {
   public filteredTodos: Todo[];
 
   public todoOwner: string;
-  public todoStatus: boolean;
+  public todoStatus: statusType;
   public todoBody: string;
   public todoCategory: string;
   public viewType: 'card' | 'list' = 'card';
