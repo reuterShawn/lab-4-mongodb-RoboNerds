@@ -30,7 +30,10 @@ export class AddTodoComponent implements OnInit {
     ],
 
     status: [
-      {type: 'required', message: 'Status is required'}
+      {type: 'required', message: 'Status is required'},
+      {type: 'minlength', message: 'Status must be at least 2 characters long'},
+      {type: 'maxlength', message: 'Status cannot be more than 50 characters long'},
+
     ],
 
 
@@ -69,7 +72,7 @@ export class AddTodoComponent implements OnInit {
 
       // Since this is for a category, we need workers to be old enough to work, and probably not older than 200.
       status: new FormControl('', Validators.compose([
-        Validators.required
+        Validators.required,
       ])),
 
       // We don't care much about what is in the category field, so we just add it here as part of the form
@@ -99,13 +102,12 @@ export class AddTodoComponent implements OnInit {
 
   submitForm() {
     this.todoService.addTodo(this.addTodoForm.value).subscribe(newID => {
-      this.snackBar.open('Added Todo ' + this.addTodoForm.value.owner, null, {
-        duration: 2000,
+      this.snackBar.open('New todoID: ' + newID, null, {
+        duration: 3500,
       });
-      this.router.navigate(['/todos/', newID]);
     }, err => {
       this.snackBar.open('Failed to add the todo', null, {
-        duration: 2000,
+        duration: 3500,
       });
     });
   }

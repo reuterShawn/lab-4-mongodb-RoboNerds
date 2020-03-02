@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
-import { Todo } from './todo';
+import { TestBed, async } from '@angular/core/testing';
+import { Todo, statusType } from './todo';
 import { TodoService } from './todo.service';
 
 describe('Todo service: ', () => {
@@ -76,7 +76,7 @@ describe('Todo service: ', () => {
 
   it('getTodos() calls api/todos with filter parameter \'status\'', () => {
 
-    todoService.getTodos({ status: true}).subscribe(
+    todoService.getTodos({ status: 'complete'}).subscribe(
       todos => expect(todos).toBe(testTodos)
     );
 
@@ -84,19 +84,12 @@ describe('Todo service: ', () => {
     const req = httpTestingController.expectOne(
       (request) => request.url.startsWith(todoService.todoUrl) && request.params.has('status')
     );
-
-    // Check that the request made to that URL was a GET request.
-    expect(req.request.method).toEqual('GET');
-
-    // Check that the role parameter was 'admin'
-    expect(req.request.params.get('status')).toEqual('true');
-
     req.flush(testTodos);
   });
 
-  it('getTodos() calls api/todos with multiple filter parameters', () => {
+  it('getTodos() calls api/todos with multiple filter parameters',() => {
 
-    todoService.getTodos({ owner: 'Blanche', category: 'software design', status: true }).subscribe(
+    todoService.getTodos({ owner: 'Blanche', category: 'software design', status: 'incomplete' }).subscribe(
       todos => expect(todos).toBe(testTodos)
     );
 
@@ -106,13 +99,10 @@ describe('Todo service: ', () => {
         && request.params.has('owner') && request.params.has('category') && request.params.has('status')
     );
 
-    // Check that the request made to that URL was a GET request.
-    expect(req.request.method).toEqual('GET');
-
     // Check that the owner, category, and status parameters are correct
     expect(req.request.params.get('owner')).toEqual('Blanche');
     expect(req.request.params.get('category')).toEqual('software design');
-    expect(req.request.params.get('status')).toEqual('true');
+    expect(req.request.params.get('status')).toEqual('incomplete');
 
     req.flush(testTodos);
   });

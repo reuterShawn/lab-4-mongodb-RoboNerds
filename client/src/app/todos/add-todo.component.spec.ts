@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, NgForm, ReactiveFormsModule, FormGroup, AbstractControl } from '@angular/forms';
+import { FormsModule, NgForm, ReactiveFormsModule, FormGroup, AbstractControl, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -66,122 +66,58 @@ describe('AddTodoComponent', () => {
   });
 
   // Not messing with testing yet since do not know what it connects with
-  describe('The name field', () => {
-    let nameControl: AbstractControl;
+  describe('The status field', () => {
+    let statusControl: AbstractControl;
 
     beforeEach(() => {
-      nameControl = addTodoComponent.addTodoForm.controls[`name`];
+      statusControl = addTodoComponent.addTodoForm.controls[`status`];
     });
 
     it('should not allow empty names', () => {
-      nameControl.setValue('');
-      expect(nameControl.valid).toBeFalsy();
+      statusControl.setValue('');
+      expect(statusControl.valid).toBeFalsy();
     });
 
-    it('should be fine with "Chris Smith"', () => {
-      nameControl.setValue('Chris Smith');
-      expect(nameControl.valid).toBeTruthy();
+    it('should  be fine with "Chris Smith"', () => {
+      statusControl.setValue('Chris Smith');
+      expect(statusControl.valid).toBeTruthy();
     });
 
     it('should fail on single character names', () => {
-      nameControl.setValue('x');
-      expect(nameControl.valid).toBeFalsy();
+      statusControl.setValue('x');
+      expect(statusControl.valid).toBeTruthy();
       // Annoyingly, Angular uses lowercase 'l' here
       // when it's an upper case 'L' in `Validators.minLength(2)`.
-      expect(nameControl.hasError('minlength')).toBeTruthy();
     });
 
     // In the real world, you'd want to be pretty careful about
     // setting upper limits on things like name lengths just
     // because there are people with really long names.
     it('should fail on really long names', () => {
-      nameControl.setValue('x'.repeat(100));
-      expect(nameControl.valid).toBeFalsy();
+      statusControl.setValue('x'.repeat(100));
+      expect(statusControl.valid).toBeTruthy();
       // Annoyingly, Angular uses lowercase 'l' here
       // when it's an upper case 'L' in `Validators.maxLength(2)`.
-      expect(nameControl.hasError('maxlength')).toBeTruthy();
-    });
 
-    it('should not allow a name to contain a symbol', () => {
-      nameControl.setValue('bad@body.com');
-      expect(nameControl.valid).toBeFalsy();
-      expect(nameControl.hasError('pattern')).toBeTruthy();
-    });
-
-    it('should allow digits in the name', () => {
-      nameControl.setValue('Bad2Th3B0ne');
-      expect(nameControl.valid).toBeTruthy();
-    });
-
-    it('should fail if we provide an "existing" name', () => {
-      // We're assuming that "abc123" and "123abc" already
-      // exist so we disallow them.
-      nameControl.setValue('abc123');
-      expect(nameControl.valid).toBeFalsy();
-      expect(nameControl.hasError('existingName')).toBeTruthy();
-
-      nameControl.setValue('123abc');
-      expect(nameControl.valid).toBeFalsy();
-      expect(nameControl.hasError('existingName')).toBeTruthy();
+      expect(statusControl.valid).toBeTruthy();
     });
   });
 
   describe('The Status Field ', () => {
-    let ageControl: AbstractControl;
+    let statusControl: AbstractControl;
 
     beforeEach(() => {
-      ageControl = addTodoComponent.addTodoForm.controls[`age`];
+      statusControl = addTodoComponent.addTodoForm.controls[`status`];
     });
 
-    it('should not allow empty names', () => {
-      ageControl.setValue('');
-      expect(ageControl.valid).toBeFalsy();
+    it('should be fine with false', () => {
+      statusControl.setValue(false);
+      expect(statusControl.valid).toBeTruthy();
     });
 
     it('should be fine with "true"', () => {
-      ageControl.setValue('27');
-      expect(ageControl.valid).toBeTruthy();
-    });
-
-    it('should fail on ages that are too low', () => {
-      ageControl.setValue('14');
-      expect(ageControl.valid).toBeFalsy();
-      expect(ageControl.hasError('min')).toBeTruthy();
-    });
-
-  });
-
-  describe('The company field', () => {
-    it('should allow empty values', () => {
-      const companyControl = addTodoForm.controls[`company`];
-      companyControl.setValue('');
-      expect(companyControl.valid).toBeTruthy();
+      statusControl.setValue(true);
+      expect(statusControl.valid).toBeTruthy();
     });
   });
-
-  describe('The body field', () => {
-    let emailControl: AbstractControl;
-
-    beforeEach(() => {
-      emailControl = addTodoComponent.addTodoForm.controls[`body`];
-    });
-
-    it('should not allow empty values', () => {
-      emailControl.setValue('');
-      expect(emailControl.valid).toBeFalsy();
-      expect(emailControl.hasError('required')).toBeTruthy();
-    });
-
-    it('should accept legal emails', () => {
-      emailControl.setValue('conniestewart@ohmnet.com');
-      expect(emailControl.valid).toBeTruthy();
-    });
-
-    it('should fail without @', () => {
-      emailControl.setValue('conniestewart');
-      expect(emailControl.valid).toBeFalsy();
-      expect(emailControl.hasError('body')).toBeTruthy();
-    });
-  });
-
 });

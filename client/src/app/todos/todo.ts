@@ -6,4 +6,6 @@ export interface Todo {
   body: string;
 }
 
+export type statusType = 'complete' | 'incomplete' ;
+
 export type TodoOwner = 'admin' | 'editor' | 'viewer';
