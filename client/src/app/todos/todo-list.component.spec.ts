@@ -16,7 +16,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs';
 import { MockTodoService } from '../../testing/todo.service.mock';
 import { Todo } from './todo';
-import { TodoCardComponent } from './todo-card.component';
 import { TodoListComponent } from './todo-list.component';
 import { TodoService } from './todo.service';
 import { MatIconModule } from '@angular/material/icon';
@@ -47,7 +46,7 @@ describe('Todo list', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [COMMON_IMPORTS],
-      declarations: [TodoListComponent, TodoCardComponent],
+      declarations: [TodoListComponent],
       // providers:    [ TodoService ]  // NO! Don't provide the real service!
       // Provide a test-double instead
       providers: [{ provide: TodoService, useValue: new MockTodoService() }]
@@ -67,11 +66,11 @@ describe('Todo list', () => {
   });
 
   it('contains a todo named \'Fry\'', () => {
-    expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.owner === 'Chris')).toBe(true);
+    expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.owner === 'Fry')).toBe(true);
   });
 
   it('contain a todo named \'Blanche\'', () => {
-    expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.owner === 'Jamie')).toBe(true);
+    expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.owner === 'Blanche')).toBe(true);
   });
 
   it('doesn\'t contain a todo named \'Santa\'', () => {
