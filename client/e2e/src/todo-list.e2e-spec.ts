@@ -37,7 +37,7 @@ describe('Todo list', () => {
  // Testing for Status Filter
   it('Should type something in the status filter and check that it returned todos with true status', () => {
     page.changeView('list');
-    page.selectMatSelectValue('todo-status-select', 'complete');
+    page.selectMatSelectValue('todo-status-select', 'true');
 // All of the todo list should have the status we are filtering by
     page.getTodoListItems().each(e => {
     expect(e.element(by.className('todo-list-status')).getText()).toEqual('true');
@@ -48,7 +48,7 @@ describe('Todo list', () => {
  // Testing for Status Filter
   it('Should type something in the status filter and check that it returned todos with false status', () => {
     page.changeView('list');
-    page.selectMatSelectValue('todo-status-select', 'incomplete');
+    page.selectMatSelectValue('todo-status-select', 'false');
 
 // All of the todo list should have the status we are filtering by
     page.getTodoListItems().each(e => {
