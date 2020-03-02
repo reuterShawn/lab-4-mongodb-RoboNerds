@@ -37,7 +37,7 @@ export class MockTodoService extends TodoService {
     super(null);
   }
 
-  getTodos(filters: { owner?: string, status?: string, body?: string, category?: string }): Observable<Todo[]> {
+  getTodos(filters: { owner?: string, status?: boolean, body?: string, category?: string }): Observable<Todo[]> {
     // Just return the test todos regardless of what filters are passed in
     return of(MockTodoService.testTodos);
   }
