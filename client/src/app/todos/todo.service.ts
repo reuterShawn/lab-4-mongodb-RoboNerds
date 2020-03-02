@@ -34,7 +34,7 @@ export class TodoService {
     return this.httpClient.get<Todo>(this.todoUrl + '/' + id);
   }
 
-  filterTodos(todos: Todo[], filters: { owner?: string, category?: string, body?: string, status?: string }): Todo[] {
+  filterTodos(todos: Todo[], filters: { owner?: string, category?: string, body?: string, status?: boolean }): Todo[] {
 
     let filteredTodos = todos;
 
@@ -51,13 +51,23 @@ export class TodoService {
     if (filters.category) {
       filters.category = filters.category.toLowerCase();
 
-      filteredTodos= filteredTodos.filter(todo => {
+      filteredTodos = filteredTodos.filter(todo => {
         return todo.category.toLowerCase().indexOf(filters.category) !== -1;
       });
     }
 
+     // Filter by body
+    if (filters.body) {
+      filters.body = filters.body.toLowerCase();
+
+      filteredTodos = filteredTodos.filter(todo => {
+        return todo.body.toLowerCase().indexOf(filters.body) !== -1;
+      });
+    }
     return filteredTodos;
   }
+
+
 
   addTodo(newTodo: Todo): Observable<string> {
     // Send post request to add a new todo with the todo data as the body.
