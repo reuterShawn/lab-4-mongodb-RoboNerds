@@ -7,19 +7,19 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class TodoService {
-  readonly todoUrl: string = environment.API_URL + 'todo';
+  readonly todoUrl: string = environment.API_URL + 'todos';
 
   constructor(private httpClient: HttpClient) {
   }
 
-  getTodos(filters?: { owner?: string, status?: string, category?: string, body?: string; }): Observable<Todo[]> {
+  getTodos(filters?: { owner?: string, status?: boolean, category?: string, body?: string; }): Observable<Todo[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters) {
       if (filters.owner) {
         httpParams = httpParams.set('owner', filters.owner);
       }
       if (filters.status) {
-        httpParams = httpParams.set('status', filters.status);
+        httpParams = httpParams.set('status', filters.status.toString());
       }
       if (filters.category) {
         httpParams = httpParams.set('company', filters.category);

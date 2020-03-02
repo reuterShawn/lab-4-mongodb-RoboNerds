@@ -16,7 +16,7 @@ export class TodoListComponent implements OnInit, OnDestroy  {
   public filteredTodos: Todo[];
 
   public todoOwner: string;
-  public todoStatus: string;
+  public todoStatus: boolean;
   public todoBody: string;
   public todoCategory: string;
   public viewType: 'card' | 'list' = 'card';
@@ -42,6 +42,7 @@ export class TodoListComponent implements OnInit, OnDestroy  {
       status:   this.todoStatus
     }).subscribe(returnedTodos => {
       this.serverFilteredTodos = returnedTodos;
+      console.log(this.serverFilteredTodos);
       this.updateFilter();
     }, err => {
       console.log(err);
@@ -50,7 +51,8 @@ export class TodoListComponent implements OnInit, OnDestroy  {
 
   public updateFilter(): void {
     this.filteredTodos = this.todoService.filterTodos(
-      this.serverFilteredTodos, { owner: this.todoOwner, category: this.todoCategory, body: this.todoBody, status: this.todoStatus });
+      // tslint:disable-next-line: max-line-length
+      this.serverFilteredTodos, { owner: this.todoOwner, category: this.todoCategory, body: this.todoBody });
   }
 
   /**
