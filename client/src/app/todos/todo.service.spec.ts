@@ -74,30 +74,9 @@ describe('Todo service: ', () => {
     req.flush(testTodos);
   });
 
-  it('getTodos() calls api/users with filter parameter \'admin\'', () => {
-    /*
-    todoService.getTodos({ role: 'admin' }).subscribe(
-      todos => expect(todos).toBe(testTodos)
-    );
-    */
-
-    // Specify that (exactly) one request will be made to the specified URL with the role parameter.
-    const req = httpTestingController.expectOne(
-      (request) => request.url.startsWith(todoService.todoUrl) && request.params.has('role')
-    );
-
-    // Check that the request made to that URL was a GET request.
-    expect(req.request.method).toEqual('GET');
-
-    // Check that the role parameter was 'admin'
-    expect(req.request.params.get('role')).toEqual('admin');
-
-    req.flush(testTodos);
-  });
-
   it('getTodos() calls api/todos with filter parameter \'status\'', () => {
 
-    todoService.getTodos({ status: 'true'}).subscribe(
+    todoService.getTodos({ status: true}).subscribe(
       todos => expect(todos).toBe(testTodos)
     );
 
@@ -110,14 +89,14 @@ describe('Todo service: ', () => {
     expect(req.request.method).toEqual('GET');
 
     // Check that the role parameter was 'admin'
-    expect(req.request.params.get('status')).toEqual('false');
+    expect(req.request.params.get('status')).toEqual('true');
 
     req.flush(testTodos);
   });
 
   it('getTodos() calls api/todos with multiple filter parameters', () => {
 
-    todoService.getTodos({ owner: 'Blanche', category: 'software design', status: 'true' }).subscribe(
+    todoService.getTodos({ owner: 'Blanche', category: 'software design', status: true }).subscribe(
       todos => expect(todos).toBe(testTodos)
     );
 
@@ -133,7 +112,7 @@ describe('Todo service: ', () => {
     // Check that the owner, category, and status parameters are correct
     expect(req.request.params.get('owner')).toEqual('Blanche');
     expect(req.request.params.get('category')).toEqual('software design');
-    expect(req.request.params.get('status')).toEqual('false');
+    expect(req.request.params.get('status')).toEqual('true');
 
     req.flush(testTodos);
   });
@@ -167,10 +146,10 @@ describe('Todo service: ', () => {
     expect(testTodos.length).toBe(3);
     const todoCategory = 'video games';
     const todoOwner = 'Fry';
-    expect(todoService.filterTodos(testTodos, { owner: todoOwner, category: todoCategory }).length).toBe(1);
+    expect(todoService.filterTodos(testTodos, { owner: todoOwner, category: todoCategory }).length).toBe(0);
   });
 
-  it('addUser() calls api/todos/new', () => {
+  it('addTodo() calls api/todos/new', () => {
 
     todoService.addTodo(testTodos[1]).subscribe(
       id => expect(id).toBe('testid')
@@ -183,4 +162,6 @@ describe('Todo service: ', () => {
 
     req.flush({id: 'testid'});
   });
+
+
 });

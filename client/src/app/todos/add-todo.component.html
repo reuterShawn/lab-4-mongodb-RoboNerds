@@ -10,7 +10,7 @@ is potentially helpful and contributed to the shaping of this example -->
         </mat-card-header>
         <mat-card-content fxLayout="column">
           <mat-form-field>
-            <mat-label>Name</mat-label>
+            <mat-label>Owner</mat-label>
             <input matInput id="ownerField" placeholder="Owner" formControlName="owner"
                   required>
             <mat-error *ngFor="let validation of add_todo_validation_messages.owner">
@@ -42,11 +42,11 @@ is potentially helpful and contributed to the shaping of this example -->
 
           <mat-form-field >
             <mat-label>Body</mat-label>
-            <input matInput #input id="emailField" placeholder="Email"
+            <input matInput #input id="bodyField" placeholder="Body"
                   formControlName="body" required>
             <mat-error *ngFor="let validation of add_todo_validation_messages.body">
               <mat-error class="error-message" id='body-error'
-                        *ngIf="addTodoForm.get('email').hasError(validation.type) && (addTodoForm.get('body').dirty || addTodoForm.get('body').touched)">
+                        *ngIf="addTodoForm.get('body').hasError(validation.type) && (addTodoForm.get('body').dirty || addTodoForm.get('body').touched)">
                 {{validation.message}}
               </mat-error>
             </mat-error>
