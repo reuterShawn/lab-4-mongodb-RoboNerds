@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { UserListComponent } from './users/user-list.component';
 import { UserProfileComponent } from './users/user-profile.component';
 import { AddUserComponent } from './users/add-user.component';
+import { TodoCardComponent } from './todos/todo-card.component';
 import { TodoListComponent } from './todos/todo-list.component';
 import { TodoProfileComponent } from './todos/todo-profile.component';
 import { AddTodoComponent } from './todos/add-todo.component';

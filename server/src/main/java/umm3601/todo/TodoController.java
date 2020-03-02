@@ -30,8 +30,6 @@ import io.javalin.http.NotFoundResponse;
  */
 public class TodoController {
 
-  static String bodyRegex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
-
   JacksonCodecRegistry jacksonCodecRegistry = JacksonCodecRegistry.withDefaultObjectMapper();
 
   private final MongoCollection<Todo> todoCollection;
@@ -98,7 +96,6 @@ public class TodoController {
 
     String sortBy = ctx.queryParam("sortby", "owner"); //Sort by sort query param, default is name
     String sortOrder = ctx.queryParam("sortorder", "asc");
-
     ctx.json(todoCollection.find(filters.isEmpty() ? new Document() : and(filters))
       .sort(sortOrder.equals("desc") ?  Sorts.descending(sortBy) : Sorts.ascending(sortBy))
       .into(new ArrayList<>()));
@@ -112,7 +109,6 @@ public class TodoController {
   public void addNewTodo(Context ctx) {
     Todo newTodo = ctx.bodyValidator(Todo.class)
       .check((tdo) -> tdo.owner != null && tdo.owner.length() > 0) //Verify that the todo has a owner that is not blank
-      .check((tdo) -> tdo.body.matches(bodyRegex)) // Verify that the provided body is valid
       .check((tdo) -> tdo.status )
       .check((tdo) -> tdo.category != null && tdo.category.length() > 0) // Verify that the todo has a category that is not blank
       .get();
@@ -122,6 +118,7 @@ public class TodoController {
     ctx.status(201);
     ctx.json(ImmutableMap.of("id", newTodo._id));
   }
+
 
   /**
    * Utility function to generate the md5 hash for a given string
